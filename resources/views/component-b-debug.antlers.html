@@ -1,0 +1,76 @@
+<!-- Debug Template for Component B -->
+<div class="max-w-7xl mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-8">Component B Debug</h1>
+
+    <!-- Debug: Show raw cards data -->
+    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-8">
+        <h2 class="text-xl font-bold mb-4">Raw Cards Data:</h2>
+        <pre class="text-sm overflow-auto">{{ cards | json_encode }}</pre>
+    </div>
+
+    <!-- Debug: Test simple card rendering -->
+    {{ if cards }}
+        <div class="space-y-8">
+            <h2 class="text-2xl font-bold">Cards Found: {{ cards | length }}</h2>
+            {{ cards }}
+                <div class="border border-gray-300 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold">Card {{ count }}</h3>
+                    <p><strong>Type:</strong> {{ type }}</p>
+                    <p><strong>Enabled:</strong> {{ enabled }}</p>
+                    <p><strong>Title:</strong> {{ card_title }}</p>
+                    <p><strong>Subtitle:</strong> {{ card_subtitle }}</p>
+                    <p><strong>Images Count:</strong> {{ card_images | length }}</p>
+
+                    {{ if card_images }}
+                        <div class="mt-4">
+                            <h4 class="font-bold">Images:</h4>
+                            {{ card_images }}
+                                <img src="{{ . }}" alt="Image {{ count }}" class="w-32 h-24 object-cover rounded mt-2">
+                            {{ /card_images }}
+                        </div>
+                    {{ /if }}
+
+                    {{ if card_content }}
+                        <div class="mt-4">
+                            <h4 class="font-bold">Content Blocks:</h4>
+                            {{ card_content }}
+                                <div class="border-l-4 border-blue-500 pl-4 mt-2">
+                                    <p><strong>Block {{ count }} Type:</strong> {{ type }}</p>
+                                    {{ if type == "paragraph" }}
+                                        <div class="text-gray-700">
+                                            {{ content }}
+                                                {{ text }}
+                                            {{ /content }}
+                                        </div>
+                                    {{ elseif type == "set" }}
+                                        <p><strong>Set Type:</strong> {{ attrs:values:type }}</p>
+                                        {{ if attrs:values:type == "icon_list" }}
+                                            <p><strong>Icon Items:</strong> {{ attrs:values:items | length }}</p>
+                                            {{ attrs:values:items }}
+                                                <div class="ml-4 mt-1">
+                                                    <p>• {{ title }} ({{ icon }}): {{ description }}</p>
+                                                </div>
+                                            {{ /attrs:values:items }}
+                                        {{ elseif attrs:values:type == "expandable_section" }}
+                                            <p><strong>Expandable Sections:</strong> {{ attrs:values:sections | length }}</p>
+                                            {{ attrs:values:sections }}
+                                                <div class="ml-4 mt-1">
+                                                    <p>• {{ title }}: {{ content }}</p>
+                                                </div>
+                                            {{ /attrs:values:sections }}
+                                        {{ /if }}
+                                    {{ /if }}
+                                </div>
+                            {{ /card_content }}
+                        </div>
+                    {{ /if }}
+                </div>
+            {{ /cards }}
+        </div>
+    {{ else }}
+        <div class="text-center py-16">
+            <h2 class="text-2xl font-bold text-red-600">No Cards Found!</h2>
+            <p>The cards field is empty or not defined.</p>
+        </div>
+    {{ /if }}
+</div>

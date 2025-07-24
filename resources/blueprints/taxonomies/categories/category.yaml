@@ -1,0 +1,20 @@
+title: Category
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      required: true
+      validate:
+        - required
+  -
+    handle: slug
+    field:
+      type: slug
+      required: true
+      from: title
+  -
+    handle: description
+    field:
+      type: textarea
+      character_limit: 200

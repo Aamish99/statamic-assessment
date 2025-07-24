@@ -1,0 +1,82 @@
+title: Blog
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      required: true
+      validate:
+        - required
+  -
+    handle: slug
+    field:
+      type: slug
+      required: true
+      from: title
+  -
+    handle: date
+    field:
+      type: date
+      time_enabled: true
+      time_required: false
+      default: now
+      required: true
+  -
+    handle: featured_image
+    field:
+      type: assets
+      container: assets
+      max_files: 1
+      mode: list
+      restrict: false
+      allow_uploads: true
+      show_filename: true
+      validate:
+        - image
+  -
+    handle: excerpt
+    field:
+      type: textarea
+      character_limit: 300
+      antlers: false
+  -
+    handle: categories
+    field:
+      type: terms
+      taxonomies:
+        - categories
+      max_items: 3
+      mode: select
+  -
+    handle: content
+    field:
+      type: bard
+      antlers: false
+      collapse: false
+      previews: true
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - unorderedlist
+        - orderedlist
+        - removeformat
+        - quote
+        - anchor
+        - image
+        - table
+      save_html: false
+      toolbar_mode: fixed
+      reading_time: false
+      fullscreen: true
+      allow_source: true
+      enable_input_rules: true
+      enable_paste_rules: true
+  -
+    handle: author
+    field:
+      type: users
+      max_items: 1
+      mode: select
+      default: current

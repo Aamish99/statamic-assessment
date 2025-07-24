@@ -1,0 +1,270 @@
+<!-- Blog Overview Component A -->
+<div class="max-w-7xl mx-auto" x-data="blogOverview()">
+    <!-- Header Section -->
+    <div class="text-left mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">From the blog</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300">Learn how to grow your business with our expert advice.</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="mb-8">
+        <div class="flex flex-wrap gap-3">
+            <button @click="filterByCategory('all')"
+                    :class="selectedCategory === 'all' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700'"
+                    class="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 transition-all duration-200 text-sm font-medium">
+                All
+            </button>
+            <template x-for="category in categories" :key="category.slug">
+                <button @click="filterByCategory(category.slug)"
+                        :class="selectedCategory === category.slug ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700'"
+                        class="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 transition-all duration-200 text-sm font-medium"
+                        x-text="category.title">
+                </button>
+            </template>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div x-show="loading" class="text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">Loading articles...</p>
+    </div>
+
+    <!-- Blog List Layout (like in the image) -->
+    <div x-show="!loading" class="space-y-8 mb-12">
+
+        <template x-for="article in paginatedArticles" :key="article.id">
+            <article x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform translate-y-4"
+                     x-transition:enter-end="opacity-100 transform translate-y-0"
+                     class=" rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+
+                <div class="flex flex-col md:flex-row">
+
+
+                    <!-- Article Image -->
+                    <div class="md:w-1/3 lg:w-1/4">
+                        <a :href="'/blog/' + article.slug" class="block">
+                            <img :src="article.featured_image || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"
+                                 :alt="article.title"
+                                 class="w-full h-48 md:h-full object-cover rounded-lg"
+                                 loading="lazy">
+                        </a>
+                    </div>                    <!-- Article Content -->
+                    <div class="md:w-2/3 lg:w-3/4 p-6">
+                        <!-- Date and Category -->
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <span class="text-sm text-gray-500 dark:text-gray-400" x-text="formatDate(article.date)"></span>
+                            <template x-for="category in article.categories" :key="category.slug">
+                                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded"
+                                      x-text="category.title"></span>
+                            </template>
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            <a :href="'/blog/' + article.slug" x-text="article.title"></a>
+                        </h3>
+
+                        <!-- Excerpt -->
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3" x-text="article.excerpt"></p>
+
+                        <!-- Author -->
+                        <div class="flex items-center" x-show="article.author">
+
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white" x-text="article.author || 'Anonymous'"></p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Author</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </template>
+    </div>
+
+    <!-- Pagination -->
+    <div x-show="!loading && totalPages > 1" class="flex justify-center items-center space-x-4">
+        <button @click="previousPage()"
+                :disabled="currentPage === 1"
+                class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+            Previous
+        </button>
+
+        <div class="flex space-x-2">
+            <template x-for="page in visiblePages" :key="page">
+                <button @click="goToPage(page)"
+                        :class="page === currentPage ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'"
+                        class="px-3 py-2 rounded-lg transition-colors"
+                        x-text="page">
+                </button>
+            </template>
+        </div>
+
+        <button @click="nextPage()"
+                :disabled="currentPage === totalPages"
+                class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+            Next
+        </button>
+    </div>
+
+    <!-- No Results -->
+    <div x-show="!loading && filteredArticles.length === 0" class="text-center py-12">
+        <div class="text-gray-400 dark:text-gray-600 mb-4">
+            <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No articles found</h3>
+        <p class="text-gray-500 dark:text-gray-400">Try adjusting your filter or check back later for new content.</p>
+    </div>
+</div>
+
+<script>
+function blogOverview() {
+    return {
+        articles: [],
+        filteredArticles: [],
+        paginatedArticles: [],
+        categories: [],
+        selectedCategory: 'all',
+        loading: true,
+        currentPage: 1,
+        perPage: 5,
+        totalPages: 1,
+
+        async init() {
+            await this.loadCategories();
+            await this.loadArticles();
+        },
+
+        async loadCategories() {
+            try {
+                const response = await fetch('/api/taxonomies/categories/terms');
+                if (response.ok) {
+                    const data = await response.json();
+                    this.categories = data.data || [];
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+                // Fallback categories if API fails
+                this.categories = [];
+            }
+        },
+
+        async loadArticles() {
+            try {
+                this.loading = true;
+                const response = await fetch('/api/collections/blog/entries?sort=-date');
+
+                if (response.ok) {
+                    const data = await response.json();
+                    this.articles = data.data.map(entry => ({
+                        id: entry.id,
+                        title: entry.title,
+                        slug: entry.slug,
+                        excerpt: entry.excerpt || this.truncateContent(entry.content),
+                        categories: entry.categories || [],
+                        date: entry.date,
+                        featured_image: entry.featured_image?.url || null,
+                        author: entry.author?.name || entry.author || 'Admin',
+                        authorId: entry.author?.id || null,
+                        authorAvatar: entry.author?.id === 'e9d8cd29-af44-48cf-8b4b-8cf95d593ac3' ? '/assets/2.jpg' : null
+                    }));
+                } else {
+                    console.error('Failed to fetch articles:', response.status);
+                    this.articles = [];
+                }
+
+                this.filterArticles();
+                this.loading = false;
+            } catch (error) {
+                console.error('Error loading articles:', error);
+                this.articles = [];
+                this.filteredArticles = [];
+                this.loading = false;
+            }
+        },
+
+        truncateContent(content) {
+            if (!content) return '';
+            // Remove HTML tags and truncate
+            const textContent = content.replace(/<[^>]*>/g, '');
+            return textContent.length > 200 ? textContent.substring(0, 200) + '...' : textContent;
+        },
+
+        filterByCategory(category) {
+            this.selectedCategory = category;
+            this.currentPage = 1;
+            this.filterArticles();
+        },
+
+        filterArticles() {
+            if (this.selectedCategory === 'all') {
+                this.filteredArticles = this.articles;
+            } else {
+                this.filteredArticles = this.articles.filter(article =>
+                    article.categories.some(cat => cat.slug === this.selectedCategory)
+                );
+            }
+            this.updatePagination();
+        },
+
+        updatePagination() {
+            this.totalPages = Math.ceil(this.filteredArticles.length / this.perPage);
+            this.paginateArticles();
+        },
+
+        paginateArticles() {
+            const start = (this.currentPage - 1) * this.perPage;
+            const end = start + this.perPage;
+            this.paginatedArticles = this.filteredArticles.slice(start, end);
+        },
+
+        goToPage(page) {
+            this.currentPage = page;
+            this.paginateArticles();
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        previousPage() {
+            if (this.currentPage > 1) {
+                this.goToPage(this.currentPage - 1);
+            }
+        },
+
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.goToPage(this.currentPage + 1);
+            }
+        },
+
+        get visiblePages() {
+            const pages = [];
+            const maxVisible = 5;
+            let start = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+            let end = Math.min(this.totalPages, start + maxVisible - 1);
+
+            if (end - start + 1 < maxVisible) {
+                start = Math.max(1, end - maxVisible + 1);
+            }
+
+            for (let i = start; i <= end; i++) {
+                pages.push(i);
+            }
+            return pages;
+        },
+
+        formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+    }
+}
+</script>

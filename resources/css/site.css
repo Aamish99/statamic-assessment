@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "../views";
+@source "../../content";
+
+/* Custom line clamp utility */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Component B specific styles */
+.component-b-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.component-b-card:hover {
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.1) 100%);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Custom scroll behavior for smooth interactions */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom animation for card elements */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-in-up {
+    animation: slideInUp 0.6s ease-out forwards;
+}
+
+/* Enhanced prose styling for bard content */
+.prose .component-b-prose {
+    max-width: none;
+}
+
+.prose .component-b-prose h3 {
+    @apply text-lg font-semibold text-gray-900 dark:text-white mb-2;
+}
+
+.prose .component-b-prose p {
+    @apply text-gray-600 dark:text-gray-300 leading-relaxed;
+}
+
+/* Image overlay effects */
+.image-overlay {
+    background: linear-gradient(45deg,
+        rgba(79, 70, 229, 0.1) 0%,
+        rgba(99, 102, 241, 0.1) 25%,
+        rgba(129, 140, 248, 0.1) 50%,
+        rgba(165, 180, 252, 0.1) 75%,
+        rgba(199, 210, 254, 0.1) 100%
+    );
+}
+
+/* Custom button hover effects */
+.btn-hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}

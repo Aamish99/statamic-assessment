@@ -1,0 +1,11 @@
+title: Blog
+template: blog/show
+layout: layout
+route: '/blog/{slug}'
+sort_dir: desc
+date_behavior:
+  past: public
+  future: private
+structure:
+  root: false
+mount: false

@@ -1,0 +1,140 @@
+title: Page
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: 'Page Content'
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Title
+          -
+            handle: cards
+            field:
+              type: replicator
+              display: 'Content Cards'
+              sets:
+                card:
+                  display: 'Content Card'
+                  fields:
+                    -
+                      handle: enabled
+                      field:
+                        type: toggle
+                        display: Enabled
+                        default: true
+                    -
+                      handle: card_title
+                      field:
+                        type: text
+                        display: 'Card Title'
+                        required: true
+                    -
+                      handle: card_subtitle
+                      field:
+                        type: text
+                        display: 'Card Subtitle'
+                    -
+                      handle: card_images
+                      field:
+                        type: assets
+                        display: 'Card Images'
+                        container: assets
+                        mode: list
+                        max_files: 5
+                    -
+                      handle: card_content
+                      field:
+                        type: bard
+                        display: 'Card Content'
+                        toolbar_mode: fixed
+                        link_noopener: false
+                        link_noreferrer: false
+                        target_blank: false
+                        reading_time: false
+                        fullscreen: true
+                        allow_source: true
+                        enable_input_rules: true
+                        enable_paste_rules: true
+                        antlers: false
+                        sets:
+                          icon_list:
+                            display: 'Icon List'
+                            instructions: 'A list of items with icons and descriptions'
+                            fields:
+                              -
+                                handle: items
+                                field:
+                                  type: replicator
+                                  display: 'List Items'
+                                  collapsed: false
+                                  sets:
+                                    item:
+                                      display: 'List Item'
+                                      fields:
+                                        -
+                                          handle: icon
+                                          field:
+                                            type: select
+                                            display: Icon
+                                            options:
+                                              push-to-deploy: 'Push to Deploy'
+                                              ssl-certificates: 'SSL Certificates'
+                                              database-backups: 'Database Backups'
+                                              encryption: 'Encryption'
+                                              monitoring: 'Monitoring'
+                                              compliance: 'Compliance'
+                                            default: push-to-deploy
+                                        -
+                                          handle: title
+                                          field:
+                                            type: text
+                                            display: Title
+                                            required: true
+                                        -
+                                          handle: description
+                                          field:
+                                            type: textarea
+                                            display: Description
+                                            required: true
+                          expandable_section:
+                            display: 'Expandable Section'
+                            instructions: 'Content that can be expanded/collapsed'
+                            fields:
+                              -
+                                handle: sections
+                                field:
+                                  type: replicator
+                                  display: Sections
+                                  collapsed: false
+                                  sets:
+                                    section:
+                                      display: Section
+                                      fields:
+                                        -
+                                          handle: title
+                                          field:
+                                            type: text
+                                            display: Title
+                                            required: true
+                                        -
+                                          handle: content
+                                          field:
+                                            type: textarea
+                                            display: Content
+                                            required: true
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        display: Meta
+        fields:
+          -
+            handle: template
+            field:
+              type: template
+              display: Template

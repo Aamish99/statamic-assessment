@@ -1,0 +1,5 @@
+name: admin
+super: true
+avatar: 2.jpg
+id: e9d8cd29-af44-48cf-8b4b-8cf95d593ac3
+password_hash: $2y$12$o7f5as.yfp4wBbifvJVH2OYkst0I4ffGq/ce6d9kx7Q14Y6IpjxbS
