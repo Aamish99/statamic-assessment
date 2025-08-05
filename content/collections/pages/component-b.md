@@ -3,8 +3,8 @@ id: component-b
 blueprint: page
 title: 'Component B - Dynamic Cards'
 template: component-b
-updated_by: fb41a95e-5948-4bec-9f76-321b9284923a
-updated_at: 1753391324
+updated_by: e9d8cd29-af44-48cf-8b4b-8cf95d593ac3
+updated_at: 1754059527
 cards:
   -
     id: oHawpCMa
@@ -20,7 +20,7 @@ cards:
         content:
           -
             type: text
-            text: 'Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.'
+            text: 'Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien. '
       -
         type: set
         attrs:
@@ -55,19 +55,6 @@ cards:
           -
             type: text
             text: 'Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.'
-      -
-        type: set
-        attrs:
-          id: expandable_section_1
-          values:
-            type: expandable_section
-            sections:
-              -
-                id: mk0CBaq7
-                type: section
-                title: 'No server? No problem.'
-                content: 'Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.'
-                enabled: true
   -
     id: RjIXSecq
     type: card
@@ -109,4 +96,6 @@ cards:
                 title: 'Compliance ready'
                 description: 'SOC 2, GDPR, and HIPAA compliant infrastructure for your peace of mind.'
                 enabled: true
+    card_images:
+      - 1.jpg
 ---

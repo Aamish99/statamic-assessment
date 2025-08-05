@@ -1,5 +1,5 @@
 <!-- Hero Section -->
-<div class="text-center mb-12">
+<div class="text-center mb-12" x-data="homeComponent()">
     <a href="https://statamic.com" class="inline-block mb-6">
         <svg id="statamic-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 272.1" width="240">
             <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="99.153" y1="65.596" x2="150.124" y2="205.639">
@@ -22,78 +22,105 @@
     </p>
 </div>
 
-<!-- Alpine.js Demo Cards -->
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-    <!-- Counter Demo -->
-    <div x-data="{ count: 0 }" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Alpine.js Counter</h3>
-        <div class="text-center">
-            <p class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-4" x-text="count"></p>
-            <div class="space-x-2">
-                <button @click="count++" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                    +
-                </button>
-                <button @click="count--" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-                    -
-                </button>
-                <button @click="count = 0" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                    Reset
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toggle Demo -->
-    <div x-data="{ isOpen: false }" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Toggle Panel</h3>
-        <button @click="isOpen = !isOpen" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors mb-4">
-            <span x-text="isOpen ? 'Hide' : 'Show'"></span> Content
-        </button>
-        <div x-show="isOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90">
-            <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                <p class="text-gray-700 dark:text-gray-300">This content is toggled with smooth animations!</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Form Demo -->
-    <div x-data="{ name: '', email: '', message: '' }" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Reactive Form</h3>
-        <div class="space-y-3">
-            <input x-model="name" type="text" placeholder="Your name" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent">
-            <input x-model="email" type="email" placeholder="Your email" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent">
-            <div x-show="name || email" x-transition class="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                <p class="text-sm text-green-700 dark:text-green-300">
-                    Hello <span x-text="name || 'there'"></span>!
-                    <span x-show="email">Your email: <span x-text="email"></span></span>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Content Section -->
-<article class="bg-white dark:bg-gray-800 p-8 shadow-xl rounded-2xl max-w-4xl mx-auto prose prose-slate dark:prose-invert">
-    {{ content | widont }}
+{{ if cards }}
+    <div class="space-y-8">
+        {{ cards }}
+            {{ if type == "card" && enabled }}
+                <article class="bg-white dark:bg-gray-800 p-8 shadow-xl rounded-2xl max-w-4xl mx-auto">
 
-    <div class="not-prose mt-8">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Tech Stack Features</h2>
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="text-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <div class="text-3xl mb-2">🎨</div>
-                <h3 class="font-semibold text-gray-900 dark:text-white">Tailwind CSS</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Utility-first CSS framework for rapid UI development</p>
-            </div>
-            <div class="text-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <div class="text-3xl mb-2">⚡</div>
-                <h3 class="font-semibold text-gray-900 dark:text-white">Alpine.js</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Lightweight JavaScript framework for interactivity</p>
-            </div>
-            <div class="text-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                <div class="text-3xl mb-2">🚀</div>
-                <h3 class="font-semibold text-gray-900 dark:text-white">Vite</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Fast build tool with hot module replacement</p>
-            </div>
-        </div>
+                    <!-- Card Header -->
+                    <div class="mb-8 text-center">
+                        {{ if card_subtitle }}
+                            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 mb-4">
+                                {{ card_subtitle }}
+                            </div>
+                        {{ /if }}
+
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            {{ card_title }}
+                        </h2>
+                    </div>
+
+
+
+                    <!-- Card Content -->
+                    <div class="prose prose-gray dark:prose-invert max-w-none">
+                        {{ card_content }}
+
+                            <!-- Paragraph -->
+                            {{ if type == "paragraph" }}
+                                <div class="mb-6">
+                                    {{ content }}
+                                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                                            {{ text }}
+                                        </p>
+                                    {{ /content }}
+                                </div>
+                            {{ /if }}
+
+                            <!-- Custom Sets -->
+                            {{ if type == "set" }}
+                                {{ if attrs:values:type == "icon_list" }}
+                                    <div class="grid md:grid-cols-2 gap-6 mt-8" x-data="{ expandedItems: {} }">
+                                        {{ attrs:values:items }}
+                                            <div class="flex items-start space-x-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                                                 @click="expandedItems['{{ title | slugify }}'] = !expandedItems['{{ title | slugify }}']">
+
+                                                <!-- Icon -->
+                                                <div class="flex-shrink-0 w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
+                                                    <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                                    </svg>
+                                                </div>
+
+                                                <!-- Content -->
+                                                <div class="flex-1">
+                                                    <div class="flex items-center justify-between">
+                                                        <h3 class="font-semibold text-gray-900 dark:text-white">{{ title }}</h3>
+                                                        <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200"
+                                                             :class="expandedItems['{{ title | slugify }}'] ? 'rotate-180' : ''"
+                                                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                        </svg>
+                                                    </div>
+
+                                                    <div x-show="expandedItems['{{ title | slugify }}']"
+                                                         x-transition:enter="transition ease-out duration-200"
+                                                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                                                         class="mt-2">
+                                                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                                            {{ description }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{ /attrs:values:items }}
+                                    </div>
+                                {{ /if }}
+                            {{ /if }}
+
+                        {{ /card_content }}
+                    </div>
+                </article>
+            {{ /if }}
+        {{ /cards }}
     </div>
-</article>
+{{ else }}
+    <!-- Fallback for old content structure -->
+    <article class="bg-white dark:bg-gray-800 p-8 shadow-xl rounded-2xl max-w-4xl mx-auto prose prose-slate dark:prose-invert">
+        {{ content | markdown }}
+    </article>
+{{ /if }}
+
+<script>
+function homeComponent() {
+    return {
+        init() {
+            console.log('Home component initialized');
+        }
+    }
+}
+</script>

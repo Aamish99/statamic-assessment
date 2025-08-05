@@ -2,15 +2,50 @@
 title: Home
 id: home
 template: home
-blueprint: pages
+blueprint: page
+cards:
+  -
+    id: welcome_card
+    type: card
+    enabled: true
+    card_title: 'Welcome to Statamic'
+    card_subtitle: 'Getting Started'
+    card_content:
+      -
+        type: paragraph
+        content:
+          -
+            type: text
+            text: 'Welcome to your brand new Statamic site! Here are a few ideas to get you started, but feel free to explore in your own way, in your own time.'
+      -
+        type: set
+        attrs:
+          id: getting_started_list
+          values:
+            type: icon_list
+            items:
+              -
+                id: control_panel
+                type: item
+                title: 'Jump into the Control Panel'
+                description: 'Edit this page or begin setting up your own collections and blueprints.'
+                enabled: true
+              -
+                id: documentation
+                type: item
+                title: 'Head to the docs'
+                description: 'Learn how Statamic works and explore all its features.'
+                enabled: true
+              -
+                id: videos
+                type: item
+                title: 'Watch Statamic videos'
+                description: 'Check out helpful tutorials and guides on YouTube.'
+                enabled: true
+              -
+                id: community
+                type: item
+                title: 'Join our Discord'
+                description: 'Meet thousands of other Statamic developers and get help.'
+                enabled: true
 ---
-## Welcome to your brand new Statamic site!
-
-Not sure what to do next? Here are a few ideas, but feel free to explore in your own way, in your own time.
-
-- [Jump into the Control Panel](/cp) and edit this page or begin setting up your own collections and blueprints.
-- [Head to the docs](https://statamic.dev) and learn how Statamic works.
-- [Watch some Statamic videos](https://youtube.com/statamic) on YouTube.
-- [Join our Discord chat](https://statamic.com/discord) and meet thousands of other Statamic developers.
-- [Start a discussion](https://github.com/statamic/cms/discussions) and get answers to your questions.
-- [Star Statamic on Github](https://github.com/statamic/cms) if you enjoy using it!

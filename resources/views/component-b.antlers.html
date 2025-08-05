@@ -27,15 +27,21 @@
                                 <!-- Image Section -->
                                 <div class="lg:w-1/2 relative">
                                     <div class="aspect-[4/3] relative overflow-hidden">
-                                        {{ if card_images }}
-                                            {{ card_images }}
-                                                <div x-show="currentSlide === {{ count - 1 }}"
-                                                     class="absolute inset-0">
-                                                    <img src="{{ . }}"
-                                                         alt="Slide {{ count }}"
-                                                         class="w-full h-full object-cover">
-                                                </div>
-                                            {{ /card_images }}
+                        {{ if card_images }}
+                            {{ card_images }}
+                                <div x-show="currentSlide === {{ count - 1 }}"
+                                     class="absolute inset-0">
+                                    {{ if url }}
+                                        <img src="{{ url }}"
+
+                                             class="w-full h-full object-cover">
+                                    {{ else }}
+                                        <img src="/assets/{{ . }}"
+                                             alt="Slide {{ count }}"
+                                             class="w-full h-full object-cover">
+                                    {{ /if }}
+                                </div>
+                            {{ /card_images }}
 
                                             {{ if card_images | length > 1 }}
                                                 <!-- Navigation Arrows -->
@@ -85,6 +91,10 @@
                                         <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                                             {{ card_title }}
                                         </h2>
+
+                                        <p class="text-gray-700 dark:text-gray-300">
+                                            {{ card_description }}
+                                        </p>
                                     </div>
 
                                     <!-- Bard Content -->
