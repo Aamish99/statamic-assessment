@@ -4,7 +4,7 @@ blueprint: page
 title: 'Component B - Dynamic Cards'
 template: component-b
 updated_by: e9d8cd29-af44-48cf-8b4b-8cf95d593ac3
-updated_at: 1754925357
+updated_at: 1754926998
 cards:
   -
     id: oHawpCMa
@@ -20,35 +20,16 @@ cards:
         content:
           -
             type: text
-            text: 'Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien. '
-      -
-        type: set
-        attrs:
-          id: icon_list_1
-          values:
-            type: icon_list
-            items:
+            text: 'Aliquet nec'
+          -
+            type: text
+            marks:
               -
-                id: j9hgdp06
-                type: item
-                icon: database-backups
-                title: 'Push to deploy'
-                description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.'
-                enabled: true
-              -
-                id: jYNKtxiy
-                type: item
-                icon: ssl-certificates
-                title: 'SSL certificates'
-                description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.'
-                enabled: true
-              -
-                id: IjnZAneZ
-                type: item
-                icon: database-backups
-                title: 'Database backups'
-                description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.'
-                enabled: true
+                type: bold
+            text: ' orci mattis amet quisque ulla'
+          -
+            type: text
+            text: 'mcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien. '
       -
         type: paragraph
         content:
