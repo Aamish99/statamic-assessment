@@ -4,7 +4,7 @@ blueprint: page
 title: 'Component B - Dynamic Cards'
 template: component-b
 updated_by: e9d8cd29-af44-48cf-8b4b-8cf95d593ac3
-updated_at: 1754059527
+updated_at: 1754925357
 cards:
   -
     id: oHawpCMa
@@ -68,34 +68,6 @@ cards:
           -
             type: text
             text: 'Built with enterprise-grade security from the ground up. Our platform ensures your data and applications are protected with industry-leading standards and practices.'
-      -
-        type: set
-        attrs:
-          id: icon_list_2
-          values:
-            type: icon_list
-            items:
-              -
-                id: 74vQG56n
-                type: item
-                icon: encryption
-                title: 'End-to-end encryption'
-                description: 'All data is encrypted in transit and at rest using AES-256 encryption standards.'
-                enabled: true
-              -
-                id: 5oHUN9Ih
-                type: item
-                icon: monitoring
-                title: '24/7 monitoring'
-                description: 'Continuous security monitoring and threat detection to keep your applications safe.'
-                enabled: true
-              -
-                id: DC1LV2rx
-                type: item
-                icon: compliance
-                title: 'Compliance ready'
-                description: 'SOC 2, GDPR, and HIPAA compliant infrastructure for your peace of mind.'
-                enabled: true
     card_images:
       - 1.jpg
 ---

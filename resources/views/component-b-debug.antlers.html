@@ -1,14 +1,11 @@
-<!-- Debug Template for Component B -->
 <div class="max-w-7xl mx-auto py-8">
     <h1 class="text-3xl font-bold mb-8">Component B Debug</h1>
 
-    <!-- Debug: Show raw cards data -->
     <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-8">
         <h2 class="text-xl font-bold mb-4">Raw Cards Data:</h2>
         <pre class="text-sm overflow-auto">{{ cards | json_encode }}</pre>
     </div>
 
-    <!-- Debug: Test simple card rendering -->
     {{ if cards }}
         <div class="space-y-8">
             <h2 class="text-2xl font-bold">Cards Found: {{ cards | length }}</h2>
